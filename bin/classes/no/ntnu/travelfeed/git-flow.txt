@@ -1,0 +1,49 @@
+Hvordan kan jeg hente og dele kode med andre?
+
+#sett opp en referanse
+git remote add gitmaster git://github.com/ombinde/travelfeed.git
+git fetch gitmaster
+#dette vil hente ned alle brancher som gitmaster har pushet til github
+#for å oppdatere den, skriv:
+git pull
+
+#det er vanlig å slå sammen git add og git commit i en kommando (git -am "commit message")
+#f.eks. hvis tuyet nå oppretter en ny fil og stager/committer den til sin gui branch
+git commit -am "en ny fil" nyfil.txt
+#så må hun huske å pushe den til github med
+git push origin gui
+
+
+Så til arbeidsflyten:
+
+Atomic evolution using Git
+
+STEP 1: Check status quo
+git status
+
+STEP 2: Prepare developement
+git checkout -b dev master
+git checkout -b newfeature dev
+
+STEP 3: Stage file
+git add file
+
+<hack...hack...hack>
+
+STEP 4: Code review and staging changes
+git diff
+git add --patch
+or
+git stash --keep-index
+git stash pop
+
+STEP 5: Commit
+git commit -m "a non-trivial change"
+
+<repeat STEP 5 until feature is implemented>
+
+STEP 6: Merge
+git checkout dev
+git merge --no-ff newfeature
+git branch -d newfeature
+
